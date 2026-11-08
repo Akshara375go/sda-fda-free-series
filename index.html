@@ -32,6 +32,10 @@ h2{font-size:1.1rem;margin:22px 0 12px;padding-left:10px;border-left:4px solid v
 .item b{display:block}
 .item small{color:var(--muted)}
 .go{color:var(--accent);font-weight:600;white-space:nowrap}
+.item .info{flex:1;min-width:0}
+.item ul{margin:6px 0 4px;padding-left:18px;color:var(--text);font-size:.92rem}
+.item li{margin:1px 0}
+.item .src{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
 footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:32px}
 footer a{color:var(--accent2)}
 [hidden]{display:none!important}
@@ -67,53 +71,54 @@ Stay connected on <a href="https://t.me/KarnatakaeExamseries" target="_blank" re
 
 <script>
 /* HOW TO ADD A NEW DAY
-   1. Copy the last { ... } day block below (from "{ day:" to its closing "}").
-   2. Paste it right after that block, with a comma between blocks.
-   3. Change the day number and paste the new links.
+   1. Copy the last { day: ... } block below (up to its closing "]}").
+   2. Paste it after that block, with a comma between the two blocks.
+   3. Change the day number, the topics and the links.
    Subjects: kannada, history, computer, polity, ca
-   "note" is optional (topic or month). Delete a line if a subject has no test that day. */
+   "topics" is a list: put each topic in quotes, separated by commas.
+   The book/source line is added automatically for History, Polity and Computer. */
 var SUBJECTS = {
-  kannada:  { icon: "✍️", name: "Kannada Grammar" },
-  history:  { icon: "🏛️", name: "Karnataka History" },
-  computer: { icon: "💻", name: "Computer Knowledge" },
-  polity:   { icon: "📜", name: "Indian Polity" },
+  kannada:  { icon: "✍️", name: "General Kannada" },
+  history:  { icon: "🏛️", name: "Karnataka History", src: "Concise History of Karnataka — Dr. Suryanath U. Kamath" },
+  computer: { icon: "💻", name: "Computer Knowledge", src: "Arihant Computer Awareness" },
+  polity:   { icon: "📜", name: "Indian Polity", src: "Indian Polity — M. Laxmikanth" },
   ca:       { icon: "📰", name: "Current Affairs" }
 };
 var DAYS = [
   { day: 1, tests: [
-    { s: "kannada",  url: "https://share.gemini.google/bjEW16hgZlDU" },
-    { s: "history",  note: "Introduction & Satavahanas", url: "https://akshara375go.github.io/karnataka-e-exam-series/intro%20and%20satvahanas%20.html" },
-    { s: "computer", note: "Computer Fundamentals – Part 1", url: "https://akshara375go.github.io/computer-awareness-test-series/computer-test-1.html" },
-    { s: "polity",   note: "100 MCQ Test", url: "https://akshara375go.github.io/karnataka-e-exam-series/polity%20mcq.html" },
-    { s: "ca",       note: "November 2025", url: "https://akshara375go.github.io/karnataka-e-exam-series/nov%202025%20CA%20.html" }
+    { s: "kannada",  topics: ["Kannada Varnamalegalu", "Namapadha"], url: "https://share.gemini.google/bjEW16hgZlDU" },
+    { s: "history",  topics: ["Introduction to Karnataka History", "Early History", "Nandas & Mauryas", "Satavahanas", "Chutus"], url: "https://akshara375go.github.io/karnataka-e-exam-series/intro%20and%20satvahanas%20.html" },
+    { s: "computer", topics: ["Introduction to Computers", "Basic Computer Architecture"], url: "https://akshara375go.github.io/computer-awareness-test-series/computer-test-1.html" },
+    { s: "polity",   topics: ["Historical Background", "Making of the Indian Constitution"], url: "https://akshara375go.github.io/karnataka-e-exam-series/polity%20mcq.html" },
+    { s: "ca",       topics: ["November 2025 Monthly Compilation – Day 1/2"], url: "https://akshara375go.github.io/karnataka-e-exam-series/nov%202025%20CA%20.html" }
   ]},
   { day: 2, tests: [
-    { s: "kannada",  url: "https://share.gemini.google/fHzqBEYmvswo" },
-    { s: "history",  note: "Kadambas & Gangas", url: "https://share.gemini.google/Ll54w0T5zCmT" },
-    { s: "computer", note: "Computer Fundamentals", url: "https://share.gemini.google/LPnSoJp83p95" },
-    { s: "polity",   url: "https://share.gemini.google/KEQSnLVQdmtW" },
-    { s: "ca",       note: "November 2025", url: "https://share.gemini.google/w77CJkY9bzpy" }
+    { s: "kannada",  topics: ["ಸರ್ವನಾಮ (Pronoun)", "ಕ್ರಿಯಾಪದ (Verb)", "ಲಿಂಗ (Gender)"], url: "https://share.gemini.google/fHzqBEYmvswo" },
+    { s: "history",  topics: ["Kadambas", "Gangas"], url: "https://share.gemini.google/Ll54w0T5zCmT" },
+    { s: "computer", topics: ["Input Devices", "Output Devices", "Computer Memory"], url: "https://share.gemini.google/LPnSoJp83p95" },
+    { s: "polity",   topics: ["Salient Features of the Indian Constitution", "Preamble of the Indian Constitution"], url: "https://share.gemini.google/KEQSnLVQdmtW" },
+    { s: "ca",       topics: ["November 2025 Monthly Compilation – Day 2/2"], url: "https://share.gemini.google/w77CJkY9bzpy" }
   ]},
   { day: 3, tests: [
-    { s: "kannada",  note: "General Kannada", url: "https://share.gemini.google/QqWYV13mOFJF" },
-    { s: "history",  url: "https://share.gemini.google/WDh7PJiuTKRR" },
-    { s: "computer", url: "https://share.gemini.google/w6dIG593M9RK" },
-    { s: "polity",   url: "https://share.gemini.google/KJU1JsnzuP3U" },
-    { s: "ca",       note: "December 2025 (Day 1 & 2)", url: "https://share.gemini.google/ubXYot36Ewp8" }
+    { s: "kannada",  topics: ["ಗುಣವಾಚಕ", "ಕ್ರಿಯಾವಿಶೇಷಣ"], url: "https://share.gemini.google/QqWYV13mOFJF" },
+    { s: "history",  topics: ["Chalukyas of Badami", "Rashtrakutas", "Alupas"], url: "https://share.gemini.google/WDh7PJiuTKRR" },
+    { s: "computer", topics: ["Computer Memory", "Types of Software"], url: "https://share.gemini.google/w6dIG593M9RK" },
+    { s: "polity",   topics: ["Union and its Territory", "Citizenship", "Fundamental Rights – Introduction & Key Provisions"], url: "https://share.gemini.google/KJU1JsnzuP3U" },
+    { s: "ca",       topics: ["December 2025 Monthly Compilation – Part 1"], url: "https://share.gemini.google/ubXYot36Ewp8" }
   ]},
   { day: 4, tests: [
-    { s: "kannada",  note: "General Kannada", url: "https://share.gemini.google/cyaI4zrl737G" },
-    { s: "history",  url: "https://share.gemini.google/Lyc6YgBCSsJA" },
-    { s: "computer", url: "https://share.gemini.google/aMAeTgguDV8Q" },
-    { s: "polity",   url: "https://share.gemini.google/mDJWk6XyCTvh" },
-    { s: "ca",       url: "https://share.gemini.google/9ywI2HJEIIAd" }
+    { s: "kannada",  topics: ["ಅವ್ಯಯ (Avyaya)", "ಸಂಧಿ – Introduction"], url: "https://share.gemini.google/cyaI4zrl737G" },
+    { s: "history",  topics: ["Western Gangas – Revision & important points", "Chalukyas of Kalyani", "Kalachuris"], url: "https://share.gemini.google/Lyc6YgBCSsJA" },
+    { s: "computer", topics: ["Types of Software", "Operating System – Introduction & Functions"], url: "https://share.gemini.google/aMAeTgguDV8Q" },
+    { s: "polity",   topics: ["Fundamental Rights – Complete", "Directive Principles of State Policy (DPSP)"], url: "https://share.gemini.google/mDJWk6XyCTvh" },
+    { s: "ca",       topics: ["December 2025 Monthly Compilation – Day 2/2"], url: "https://share.gemini.google/9ywI2HJEIIAd" }
   ]},
   { day: 5, tests: [
-    { s: "kannada",  note: "General Kannada", url: "https://share.gemini.google/JgTNFuGmeQYc" },
-    { s: "history",  url: "https://share.gemini.google/bGTM9Obxec1v" },
-    { s: "computer", url: "https://share.gemini.google/gQ1xUNDZVi3o" },
-    { s: "polity",   url: "https://share.gemini.google/3PNm2OsXRoqM" },
-    { s: "ca",       note: "January 2026 (Day 1 & 2)", url: "https://share.gemini.google/ExiHOZRbwyH8" }
+    { s: "kannada",  topics: ["ಸಂಧಿ (Sandhi) – Types & Practice"], url: "https://share.gemini.google/JgTNFuGmeQYc" },
+    { s: "history",  topics: ["Cholas in Karnataka", "Hoysalas and the Seunas"], url: "https://share.gemini.google/bGTM9Obxec1v" },
+    { s: "computer", topics: ["Types of Operating Systems", "Popular Operating Systems", "Operating System Basics"], url: "https://share.gemini.google/gQ1xUNDZVi3o" },
+    { s: "polity",   topics: ["Fundamental Duties", "Amendment of the Constitution"], url: "https://share.gemini.google/3PNm2OsXRoqM" },
+    { s: "ca",       topics: ["January 2026 Monthly Compilation – Day 1/2"], url: "https://share.gemini.google/ExiHOZRbwyH8" }
   ]}
 ];
 
@@ -140,9 +145,15 @@ function show() {
     var sub = SUBJECTS[t.s] || { icon: "📝", name: t.s };
     var a = document.createElement("a");
     a.className = "item"; a.href = t.url; a.target = "_blank"; a.rel = "noopener";
-    a.innerHTML = "<span><b></b><small></small></span><span class='go'>Start Test →</span>";
+    a.innerHTML = "<span class='info'><b></b><ul></ul><span class='src'></span></span><span class='go'>Start Test →</span>";
     a.querySelector("b").textContent = sub.icon + " " + sub.name;
-    a.querySelector("small").textContent = t.note || "Practice Test";
+    var ul = a.querySelector("ul");
+    (t.topics || []).forEach(function (x) {
+      var li = document.createElement("li"); li.textContent = x; ul.appendChild(li);
+    });
+    if (!(t.topics && t.topics.length)) ul.remove();
+    var src = a.querySelector(".src");
+    if (sub.src) { src.textContent = "📚 " + sub.src; } else { src.remove(); }
     links.appendChild(a);
   });
   window.scrollTo(0, 0);
